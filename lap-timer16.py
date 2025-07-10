@@ -402,7 +402,7 @@ def draw_display(elapsed_time, laps_left, finished):
     if input_stage == "laps":
         # Display lap selection buttons
         prompt_surface = font_large.render("Select number of laps:", True, (255, 255, 255))
-        prompt_rect = prompt_surface.get_rect(center=(screen_width // 2, screen_height // 6))
+        prompt_rect = prompt_surface.get_rect(center=(screen_width // 2, (screen_height // 6)+50))
         screen.blit(prompt_surface, prompt_rect)
         
         for rect, value in lap_selection_buttons:
@@ -417,7 +417,7 @@ def draw_display(elapsed_time, laps_left, finished):
         if length_input_mode == "buttons":
             # Display length selection buttons
             prompt_surface = font_large.render("Select lap length:", True, (255, 255, 255))
-            prompt_rect = prompt_surface.get_rect(center=(screen_width // 2, screen_height // 6))
+            prompt_rect = prompt_surface.get_rect(center=(screen_width // 2, (screen_height // 6)+50))
             screen.blit(prompt_surface, prompt_rect)
             
             for rect, value, label in length_selection_buttons:
@@ -443,7 +443,7 @@ def draw_display(elapsed_time, laps_left, finished):
         
     else:
         # Timer display area
-        timer_y = screen_height // 8
+        timer_y = (screen_height // 8)+50
         
         # Time display
         hours = int(elapsed_time) // 3600
@@ -456,7 +456,7 @@ def draw_display(elapsed_time, laps_left, finished):
         screen.blit(time_surface, time_rect)
 
         # Status display area
-        status_y = screen_height // 3
+        status_y = (screen_height // 3)+50
         
         if finished:
             laps_surface = font_large.render(f"Total Laps: {total_laps}", True, (255, 200, 200))
