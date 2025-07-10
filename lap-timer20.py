@@ -392,12 +392,12 @@ def draw_display(elapsed_time, laps_left, finished):
 
     # Reset and Quit buttons
     pygame.draw.rect(screen, (100, 100, 255), reset_button_rect)
-    reset_text = font_medium.render("Reset", True, (255, 255, 255))
+    reset_text = font_large.render("Reset", True, (255, 255, 255))
     reset_text_rect = reset_text.get_rect(center=reset_button_rect.center)
     screen.blit(reset_text, reset_text_rect)
 
     pygame.draw.rect(screen, (200, 50, 50), quit_button_rect)
-    quit_text = font_medium.render("Quit", True, (255, 255, 255))
+    quit_text = font_large.render("Quit", True, (255, 255, 255))
     quit_text_rect = quit_text.get_rect(center=quit_button_rect.center)
     screen.blit(quit_text, quit_text_rect)
 
