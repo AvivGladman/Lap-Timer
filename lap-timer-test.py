@@ -8,10 +8,11 @@ start_lap_button = Button(2)
 
 # === Pygame Setup ===
 pygame.init()
-screen = pygame.display.set_mode((600, 450))
+screen = pygame.display.set_mode((600, 500))
 pygame.display.set_caption("Lap Timer")
-font_large = pygame.font.SysFont(None, 60)
-font_small = pygame.font.SysFont(None, 40)
+font_large = pygame.font.SysFont(None, 72)
+font_medium = pygame.font.SysFont(None, 48)
+font_small = pygame.font.SysFont(None, 36)
 clock = pygame.time.Clock()
 
 # === State ===
@@ -30,9 +31,10 @@ lap_input_text = ""
 length_input_text = ""
 
 # === UI Buttons ===
-start_button_rect = pygame.Rect(50, 330, 200, 60)
-lap_button_rect = pygame.Rect(350, 330, 200, 60)
-quit_button_rect = pygame.Rect(500, 10, 80, 40)
+start_button_rect = pygame.Rect(30, 380, 160, 60)
+lap_button_rect = pygame.Rect(220, 380, 160, 60)
+minus_lap_button_rect = pygame.Rect(410, 380, 160, 60)
+quit_button_rect = pygame.Rect(510, 10, 80, 40)
 reset_button_rect = pygame.Rect(10, 10, 100, 40)
 
 def draw_display(elapsed_time, laps_left, finished):
@@ -62,22 +64,26 @@ def draw_display(elapsed_time, laps_left, finished):
         screen.blit(time_surface, (50, 80))
 
         if finished:
-            laps_surface = font_large.render(f"Laps: {total_laps}", True, (255, 200, 200))
-            congrats_surface = font_large.render("Congratulations!!!", True, (100, 255, 100))
+            laps_surface = font_medium.render(f"Laps: {total_laps}", True, (255, 200, 200))
+            congrats_surface = font_medium.render("Congratulations!!!", True, (100, 255, 100))
             distance = total_laps * lap_length_m * 2
             distance_surface = font_small.render(f"Distance: {distance} m", True, (200, 255, 200))
-            screen.blit(laps_surface, (50, 110))
-            screen.blit(congrats_surface, (50, 180))
-            screen.blit(distance_surface, (50, 250))
+            screen.blit(laps_surface, (50, 160))
+            screen.blit(congrats_surface, (50, 220))
+            screen.blit(distance_surface, (50, 280))
         else:
             laps_surface = font_large.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200))
-            screen.blit(laps_surface, (50, 160))
+            screen.blit(laps_surface, (50, 180))
 
-        # Draw Start and +Lap buttons
-        pygame.draw.rect(screen, (0, 100, 200), start_button_rect)
-        pygame.draw.rect(screen, (0, 200, 100), lap_button_rect)
-        screen.blit(font_small.render("Start", True, (255, 255, 255)), (start_button_rect.x + 60, start_button_rect.y + 15))
-        screen.blit(font_small.render("+ Lap", True, (255, 255, 255)), (lap_button_rect.x + 60, lap_button_rect.y + 15))
+            # Draw Start, +Lap and -Lap buttons
+            pygame.draw.rect(screen, (0, 100, 200), start_button_rect)
+            screen.blit(font_small.render("Start", True, (255, 255, 255)), (start_button_rect.x + 40, start_button_rect.y + 15))
+
+            pygame.draw.rect(screen, (0, 200, 100), lap_button_rect)
+            screen.blit(font_small.render("+ Lap", True, (255, 255, 255)), (lap_button_rect.x + 40, lap_button_rect.y + 15))
+
+            pygame.draw.rect(screen, (0, 200, 100), minus_lap_button_rect)
+            screen.blit(font_small.render("- Lap", True, (255, 255, 255)), (minus_lap_button_rect.x + 40, minus_lap_button_rect.y + 15))
 
     pygame.display.flip()
 
@@ -94,6 +100,11 @@ def handle_lap():
             remaining_laps -= 1
         if remaining_laps == 0:
             done = True
+
+def handle_minus_lap():
+    global remaining_laps
+    if started and not done:
+        remaining_laps += 1  # Allows user to undo a lap if needed
 
 def handle_reset():
     global started, done, start_time, elapsed_time, remaining_laps
@@ -130,6 +141,8 @@ while True:
                     handle_start()
                 elif lap_button_rect.collidepoint(event.pos):
                     handle_lap()
+                elif minus_lap_button_rect.collidepoint(event.pos):
+                    handle_minus_lap()
 
         elif input_stage != "done":
             if event.type == pygame.KEYDOWN:
