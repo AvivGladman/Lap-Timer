@@ -335,8 +335,8 @@ quit_button_rect = pygame.Rect(screen_width - button_width - 20, top_button_y, b
 reset_button_rect = pygame.Rect(20, top_button_y, button_width, button_height)
 
 # Main control buttons (bottom area)
-main_button_width = screen_width // 6
-main_button_height = screen_height // 12
+main_button_width = 160
+main_button_height = 50
 main_button_y = screen_height - main_button_height - 30
 main_button_spacing = 30
 
@@ -468,7 +468,7 @@ def draw_display(elapsed_time, laps_left, finished):
             congrats_rect = congrats_surface.get_rect(center=(screen_width // 2, status_y + 80))
             screen.blit(congrats_surface, congrats_rect)
             
-            distance = total_laps * lap_length_m * 2
+            distance = total_laps * lap_length_m
             distance_surface = font_huge.render(f"Distance: {distance:.2f} m", True, (200, 255, 200))
             distance_rect = distance_surface.get_rect(center=(screen_width // 2, status_y + 140))
             screen.blit(distance_surface, distance_rect)
@@ -484,22 +484,22 @@ def draw_display(elapsed_time, laps_left, finished):
 
             # Control buttons
             pygame.draw.rect(screen, (0, 100, 200), start_button_rect)
-            start_text = font_medium.render("Start", True, (255, 255, 255))
+            start_text = font_large.render("Start", True, (255, 255, 255))
             start_text_rect = start_text.get_rect(center=start_button_rect.center)
             screen.blit(start_text, start_text_rect)
 
             pygame.draw.rect(screen, (200, 150, 50), pause_button_rect)
-            pause_text = font_medium.render("Pause", True, (255, 255, 255))
+            pause_text = font_large.render("Pause", True, (255, 255, 255))
             pause_text_rect = pause_text.get_rect(center=pause_button_rect.center)
             screen.blit(pause_text, pause_text_rect)
 
             pygame.draw.rect(screen, (0, 200, 100), lap_button_rect)
-            lap_text = font_medium.render("+ Lap", True, (255, 255, 255))
+            lap_text = font_large.render("+ Lap", True, (255, 255, 255))
             lap_text_rect = lap_text.get_rect(center=lap_button_rect.center)
             screen.blit(lap_text, lap_text_rect)
 
             pygame.draw.rect(screen, (200, 100, 0), minus_lap_button_rect)
-            minus_lap_text = font_medium.render("- Lap", True, (255, 255, 255))
+            minus_lap_text = font_large.render("- Lap", True, (255, 255, 255))
             minus_lap_text_rect = minus_lap_text.get_rect(center=minus_lap_button_rect.center)
             screen.blit(minus_lap_text, minus_lap_text_rect)
 
@@ -525,7 +525,7 @@ def handle_lap():
     global remaining_laps, done
     if started and not done and not paused:
         if remaining_laps > 0:
-            remaining_laps -= 1
+            remaining_laps -= 2
         if remaining_laps == 0:
             done = True
             # Add spectacular initial fireworks when finishing
@@ -536,7 +536,7 @@ def handle_lap():
 def handle_minus_lap():
     global remaining_laps
     if started and not done and not paused:
-        remaining_laps += 1
+        remaining_laps += 2
 
 def handle_reset():
     global started, done, start_time, elapsed_time, remaining_laps, paused, input_stage, length_input_text, length_input_mode, fireworks
