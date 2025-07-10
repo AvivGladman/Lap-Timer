@@ -33,11 +33,15 @@ length_input_text = ""
 start_button_rect = pygame.Rect(50, 330, 200, 60)
 lap_button_rect = pygame.Rect(350, 330, 200, 60)
 quit_button_rect = pygame.Rect(500, 10, 80, 40)
+reset_button_rect = pygame.Rect(10, 10, 100, 40)
 
 def draw_display(elapsed_time, laps_left, finished):
     screen.fill((0, 0, 0))
 
-    # Always draw Quit button
+    # Always draw Reset and Quit buttons
+    pygame.draw.rect(screen, (100, 100, 255), reset_button_rect)
+    screen.blit(font_small.render("Reset", True, (255, 255, 255)), (reset_button_rect.x + 10, reset_button_rect.y + 8))
+
     pygame.draw.rect(screen, (200, 50, 50), quit_button_rect)
     screen.blit(font_small.render("Quit", True, (255, 255, 255)), (quit_button_rect.x + 10, quit_button_rect.y + 8))
 
@@ -69,7 +73,7 @@ def draw_display(elapsed_time, laps_left, finished):
             laps_surface = font_large.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200))
             screen.blit(laps_surface, (50, 120))
 
-        # Draw control buttons
+        # Draw Start and +Lap buttons
         pygame.draw.rect(screen, (0, 100, 200), start_button_rect)
         pygame.draw.rect(screen, (0, 200, 100), lap_button_rect)
         screen.blit(font_small.render("Start", True, (255, 255, 255)), (start_button_rect.x + 60, start_button_rect.y + 15))
@@ -91,6 +95,14 @@ def handle_lap():
         if remaining_laps == 0:
             done = True
 
+def handle_reset():
+    global started, done, start_time, elapsed_time, remaining_laps
+    started = False
+    done = False
+    start_time = None
+    elapsed_time = 0
+    remaining_laps = total_laps
+
 # GPIO handler
 def gpio_handler():
     if not started:
@@ -111,8 +123,9 @@ while True:
             if quit_button_rect.collidepoint(event.pos):
                 pygame.quit()
                 sys.exit()
-
-            if input_stage == "done":
+            elif reset_button_rect.collidepoint(event.pos):
+                handle_reset()
+            elif input_stage == "done":
                 if start_button_rect.collidepoint(event.pos):
                     handle_start()
                 elif lap_button_rect.collidepoint(event.pos):
