@@ -35,7 +35,7 @@ length_input_text = ""
 # === UI Buttons ===
 button_width = 130
 button_height = 50
-button_y = 420
+button_y = 350
 spacing = 10
 
 start_button_rect = pygame.Rect(30, button_y, button_width, button_height)
