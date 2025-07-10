@@ -180,7 +180,7 @@ while True:
                             lap_length_m = float(length_input_text)
                             input_stage = "done"
                         except ValueError:
-                            length_input_text = ""
+                            length_input_text = 8.5344
                 elif event.key == pygame.K_BACKSPACE:
                     if input_stage == "laps":
                         lap_input_text = lap_input_text[:-1]
