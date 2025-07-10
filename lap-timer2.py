@@ -72,9 +72,9 @@ def draw_display(elapsed_time, laps_left, finished):
 
         if finished:
             screen.blit(font_medium.render(f"Laps: {total_laps}", True, (255, 200, 200)), (50, 160))
-            screen.blit(font_medium.render("Congratulations!!!", True, (100, 255, 100)), (50, 220))
+            screen.blit(font_medium.render("Congratulations!!!", True, (100, 255, 100)), (50, 280))
             distance = total_laps * lap_length_m * 2
-            screen.blit(font_small.render(f"Distance: {distance:.2f} m", True, (200, 255, 200)), (50, 280))
+            screen.blit(font_small.render(f"Distance: {distance:.2f} m", True, (200, 255, 200)), (50, 220))
         else:
             screen.blit(font_medium.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200)), (50, 160))
             completed_laps = total_laps - remaining_laps
