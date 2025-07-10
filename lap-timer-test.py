@@ -59,7 +59,7 @@ def draw_display(elapsed_time, laps_left, finished):
         time_str = f"{hours:02}:{minutes:02}:{seconds:02}"
 
         time_surface = font_large.render(f"Time: {time_str}", True, (255, 255, 255))
-        screen.blit(time_surface, (50, 40))
+        screen.blit(time_surface, (50, 80))
 
         if finished:
             laps_surface = font_large.render(f"Laps: {total_laps}", True, (255, 200, 200))
@@ -71,7 +71,7 @@ def draw_display(elapsed_time, laps_left, finished):
             screen.blit(distance_surface, (50, 250))
         else:
             laps_surface = font_large.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200))
-            screen.blit(laps_surface, (50, 120))
+            screen.blit(laps_surface, (50, 160))
 
         # Draw Start and +Lap buttons
         pygame.draw.rect(screen, (0, 100, 200), start_button_rect)
