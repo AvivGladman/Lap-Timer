@@ -8,7 +8,7 @@ start_lap_button = Button(2)
 
 # === Pygame Setup ===
 pygame.init()
-screen = pygame.display.set_mode((640, 520))
+screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 pygame.display.set_caption("Lap Timer")
 font_large = pygame.font.SysFont(None, 72)
 font_medium = pygame.font.SysFont(None, 48)
