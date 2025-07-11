@@ -13,6 +13,7 @@ pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Lap Timer")
 screen_width, screen_height = screen.get_size()
+font_huge2 = pygame.font.SysFont(None, min(screen_width//4, screen_height//4))
 font_huge1 = pygame.font.SysFont(None, min(screen_width//6, screen_height//6)) 
 font_huge = pygame.font.SysFont(None, min(screen_width//8, screen_height//8))
 font_large = pygame.font.SysFont(None, min(screen_width//12, screen_height//12))
@@ -472,7 +473,7 @@ def draw_display(elapsed_time, laps_left, finished):
             distance_rect = distance_surface.get_rect(center=(screen_width // 2, status_y + 140))
             screen.blit(distance_surface, distance_rect)
         else:
-            laps_remaining_surface = font_huge1.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200))
+            laps_remaining_surface = font_huge2.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200))
             laps_remaining_rect = laps_remaining_surface.get_rect(center=(screen_width // 2, status_y))
             screen.blit(laps_remaining_surface, laps_remaining_rect)
             
