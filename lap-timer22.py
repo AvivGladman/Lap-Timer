@@ -6,7 +6,7 @@ import math
 from gpiozero import Button
 
 # === GPIO Setup ===
-start_lap_button = Button(2)
+start_lap_button = Button(5)
 
 # === Pygame Setup ===
 pygame.init()
