@@ -472,7 +472,7 @@ def draw_display(elapsed_time, laps_left, finished):
             distance_rect = distance_surface.get_rect(center=(screen_width // 2, status_y + 140))
             screen.blit(distance_surface, distance_rect)
         else:
-            laps_remaining_surface = font_huge2.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200))
+            laps_remaining_surface = font_huge1.render(f"Laps Remaining: {laps_left}", True, (255, 200, 200))
             laps_remaining_rect = laps_remaining_surface.get_rect(center=(screen_width // 2, status_y))
             screen.blit(laps_remaining_surface, laps_remaining_rect)
             
