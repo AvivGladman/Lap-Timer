@@ -7,7 +7,7 @@ import math
 from gpiozero import Button
 
 # === GPIO Setup ===
-start_lap_button = Button(5)
+start_lap_button = Button(19,bounce_time=0.1)
 
 # === Pygame Setup ===
 pygame.init()
@@ -387,6 +387,7 @@ for i, (value, label) in enumerate(length_values):
 
 def draw_display(elapsed_time, laps_left, finished):
     screen.fill((0, 0, 0))
+    global flash_start_time
 
     # Draw fireworks in background if finished
     if finished:
